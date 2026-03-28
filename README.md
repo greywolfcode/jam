@@ -1,2 +1,3 @@
 # jam
-.m3u/.m3u8 creation tool
+
+jam Arranges m3u
