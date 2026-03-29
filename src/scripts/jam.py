@@ -1,4 +1,5 @@
-import wave
+import mutagen
+
 
 def create_m3u(files, base_path):
     """Creates m3u file from list of paths"""
@@ -7,7 +8,7 @@ def create_m3u(files, base_path):
 
     for file in files:
         track = ["#EXTINF:"]
-        track.append(str(_wav_handeler(file)))
+        track.append(str(_length_handeler(file)))
         track.append(file.name) 
 
         output.append(" ".join(track))
@@ -16,16 +17,15 @@ def create_m3u(files, base_path):
 
     return "\n".join(output)
 
-def _wav_handeler(path):
+def _length_handeler(path):
     """input: file path
-       output: frame rate"""
+       output: length (sec)"""
     
-    with wave.open(str(path), "r") as audio:
-        frame_rate = audio.getframerate()
-        total_frames = audio.getnframes()
+    audio = mutagen.File(path)
 
-        length = total_frames / float(frame_rate)
-    return length
-        
-    
+    if "length" in audio.keys():
+        return audio["length"]
+    else:
+        return audio.info.length
+    #print(audio.pprint())
         
