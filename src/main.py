@@ -19,7 +19,7 @@ parser.add_argument("-n", "--nonRecursive", action="store_true",
 parser.add_argument("-t", "--type", choices=[".m3u", ".m3u8"],
                     default=".m3u",
                     help="choose to output .m3u or .m3u8, .m3u is default")
-parser.add_argument("-f", "--folder", type=str, default="",
+parser.add_argument("-f", "--folder", type=str, default="",nargs="+",
                     help="only specified folder will be check for in subdirectories")
 
 def main(): 
