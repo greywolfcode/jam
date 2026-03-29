@@ -12,7 +12,10 @@ def create_m3u(files, base_path):
         track.append(file.name) 
 
         output.append(" ".join(track))
-        output.append(str(file.relative_to(base_path)))
+        if base_path == "":
+            output.append(str(file.resolve()))
+        else:
+            output.append(str(file.relative_to(base_path)))
         output.append("")
 
     return "\n".join(output)

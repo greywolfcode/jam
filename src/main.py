@@ -21,6 +21,8 @@ parser.add_argument("-t", "--type", choices=[".m3u", ".m3u8"],
                     help="choose to output .m3u or .m3u8, .m3u is default")
 parser.add_argument("-f", "--folder", type=str, default="",nargs="+",
                     help="only specified folder will be check for in subdirectories")
+parser.add_argument("-a", "--absolute", action="store_true",
+                    help="use absolute paths")
 
 def main(): 
     args = parser.parse_args()
@@ -37,9 +39,10 @@ def main():
         music_paths = path.glob(folder + "*.wav")
     else:
         music_paths = path.glob("**/" + folder + "*.wav")
-
-    #mke relative paths
     
+    if args.absolute:
+        path = ""
+
     file = jam.create_m3u(music_paths, path)
 
     name = args.playlist_name
@@ -47,7 +50,7 @@ def main():
     if args.playlist_name[-len(extension):] != extension:
         name += extension
 
-    with open(os.path.join(args.folder_path, name), "w") as output:
+    with open(pathlib.Path(os.path.join(args.folder_path, name)), "w") as output:
         output.write(file)
 
 if __name__ == "__main__":
