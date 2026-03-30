@@ -34,7 +34,7 @@ parser.add_argument("folder_path")
 parser.add_argument("playlist_name")
 
 #optional arguments
-parser.add_argument("-n", "--nonRecursive", action="store_true",
+parser.add_argument("-n", "--non_recursive", action="store_true",
                     help="choose to not search all subdirectories")
 parser.add_argument("-t", "--type", choices=[".m3u", ".m3u8"],
                     default=".m3u",
@@ -69,7 +69,7 @@ def main():
             #include any sub directories of provided folder
             folder += os.sep + "**" + os.sep 
         for ext in music_exts:
-            if args.nonRecursive:
+            if args.non_recursive:
                 paths.extend(list(path.glob(folder + "*" + ext)))
             else:
                 paths.extend(list(path.rglob(folder + "*" + ext)))
