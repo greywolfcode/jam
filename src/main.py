@@ -63,7 +63,7 @@ def main():
     folders = args.folders
     if folders == None:
         folders = [""] #ensure there is at least 1 folder
-    folder.sort()
+    folders.sort()
     for folder in folders:
         if folder != "":
             #include any sub directories of provided folder
